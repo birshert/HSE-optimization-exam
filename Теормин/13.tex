@@ -1,0 +1,60 @@
+Задача условной оптимизации:
+\[
+    (P)
+    \begin{cases}
+        f(x) \to \min\limits_{x} \\
+        g_{i}(x) \leq 0, \, i \in \{ 1, \dots , m \} \\
+        h_{i}(x) = 0, \, j \in \{ 1, \dots , p \} \\
+    \end{cases}
+    \quad f, g_{i}, h_{j} \in C^{1}
+\]
+Функция Лагранжа:
+\[
+    L(x, \lambda, \mu) = f(x) + \sum\limits_{i=1}^{m} \lambda_{i} g_{i}(x) + \sum\limits_{j=1}^{p} \mu_{j} h_{j}(x)
+\]
+Двойственная функция Лагранжа:
+\[
+    q(\lambda, \mu) := \inf\limits_{x} L(x, \lambda, \mu)
+\]
+Свойства двойственной функции:
+\begin{itemize}
+    \item $q$ - вогнутая функция
+    \item $q(\lambda, \mu) \leq f_{opt}$, для $\lambda \geq 0, \mu$
+\end{itemize}
+Двойственная задача оптимизации:
+\[
+    (D)
+    \begin{cases}
+        q(\lambda, \mu) \to \max\limits_{\lambda, \mu} \\
+        \lambda \geq 0
+    \end{cases}
+\]
+Двойственность:
+\begin{itemize}
+    \item \textbf{Слабая} двойственность: $q_{opt} \leq f_{opt}$
+    \item \textbf{Сильная} двойственность: $q_{opt} = f_{opt}$
+\end{itemize}
+Если выполнено условие регулярности и $(P)$ является выпуклой задачей оптимизации, то выполняется сильная двойственность.
+Пример построения двойственной задачи: \\
+Исходная задача:
+\[
+    \begin{cases}
+        c^{T} x \to \min\limits_{x \in \mathbb{R}^{n}} \\
+        Ax \leq b, \quad A \in \mathbb{R}^{m \times n}, \Rk(A) = \min(m, n)
+    \end{cases}
+\]
+Лагранжиан:
+\[
+    L(x, \lambda) = c^{T} x + \lambda^{T} (Ax - b) = (c + A^{T}\lambda)^{T} x - \lambda^{T} b
+\]
+Двойственная функция:
+\[
+    q(\lambda) = \inf\limits_{x \in \mathbb{R}^{n}} L(x, \lambda)
+\]
+Двойственная задача:
+\begin{itemize}
+    \item $c + A^{T}\lambda = 0$: \quad $\begin{cases}
+                                             q(\lambda) = -\lambda^{T}b \to \max\limits_{y \in \mathbb{R}^{m}} \\ c + A^{T}\lambda = 0 \\ \lambda \geq 0
+    \end{cases}$
+    \item $c + A^{T}\lambda \neq 0$: $q(\lambda) = -\infty$
+\end{itemize}

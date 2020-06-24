@@ -1,0 +1,65 @@
+Задача оптимизации:
+\[
+    \begin{cases}
+        \label{kkt}
+        f(x) \to \min\limits_{x \in D \subset \mathbb{R}^{n}}, \\
+        g_{i}(x) \leq 0, \quad i \in \{ 1, \dots , m \}, \\
+        h_{j}(x) = 0, \quad j \in \{ 1, \dots , p \}.
+    \end{cases}
+\]
+Доменное множество (совместная область определения, где определены все функции):
+\[
+    D = \dom f \bigcap \left( \capl\limits_{i=1}^{m} \dom g_{i} \right) \bigcap \left( \capl\limits_{j=1}^{p} \dom h_{j} \right)
+\]
+Допустимое множество (все точки из доменного множества, которые удовлетворяют ограничениям $g$ и $h$):
+\[
+    F = \left\{ x \in D \,|\, g_{i}(x) \leq 0 \, \forall i,\,\, h_{j}(x) = 0 \, \forall j \right\}
+\]
+Активное множество (множество ограничений, все ограничения которые имеют вид равенства в точке):
+\[
+    \text{Active} (x) = \{ 1, \dots , p \} \cup \{ i \,|\, g_{i}(x) = 0 \}
+\]
+Функция Лагранжа:
+\[
+    L(x, \lambda, \mu) = f(x) + \sum\limits_{i=1}^{m} \lambda_{i} g_{i}(x) + \sum\limits_{j=1}^{p} \mu_{j} h_{j}(x)
+\]
+Условия регулярности:
+\begin{itemize}
+    \item \textbf{LCQ} все функции $g_{i}, h_{j}$ являются невырожденными афинными
+    \item \textbf{LICQ} вектора $\nabla g_{i}(x), \nabla h_{j}(x)$ для $i, j \in \text{Active}(x)$ являются линейно независимыми
+    \item \textbf{MFCQ} вектора $\nabla g_{i}(x), \nabla h_{j}(x)$ для $i, j \in \text{Active}(x)$ являются линейно независимыми с положительными коэффициентами
+    \item \textbf{условия Слейтера} для выпуклых задач оптимизации найдется $\widetilde{x}$ такое, что $h_{j}(\widetilde{x}) = 0 \, \forall j$ и $g_{i}(\widetilde{x}) < 0 \, \forall i$
+    \item \textbf{ослабленные условия Слейтера} для выпуклых задач оптимизации найдется $\widetilde{x}$ такое, что $h_{j}(\widetilde{x}) = 0 \, \forall j$ и $g_{i}(\widetilde{x}) \leq 0$ для всех аффинных функций $g_{i}$ и $g_{i}(\widetilde{x}) < 0$ для остальных
+\end{itemize}
+Теорема ККТ:
+\theorem{
+Пусть в \hyperref[kkt]{задаче оптимизации} $f, g_{i}, h_{j} \in C^{1}$, $x_{*}$ - точка локального экстремума и выполнены условия регулярности для $\{ g_{i}(x_{*}),\, h_{j}(x_{*}) \,|\, i, j \in \text{Active}(x_{*}) \}$. \\ Тогда найдутся $\lambda_{*}, \mu_{*}$ такие, что:
+\begin{itemize}
+    \item $\nabla_{x}L(x_{*}, \lambda_{*}, \mu_{*}) = \nabla f(x_{*}) + \sum\limits_{i=1}^{m} \lambda_{i} \nabla g_{*, i}(x_{*}) + \sum\limits_{j=1}^{p} \mu_{*, j} \nabla h_{j}(x_{*}) = 0$ - станционарность функции Лагранжа.
+    \item $x_{*} \in F$ - прямая допустимость
+    \item $\lambda_{*, i} \geq 0 \, \forall i$ - двойственная допустимость
+    \item $\lambda_{*, i} g_{i}(x_{*}) = 0 \, \forall i$ - условия дополняющей нежесткости
+\end{itemize}
+}
+Она утверждает, что для задач для которых справедливо некоторое условие регулярности, если точка $x_{*}$ — локальный минимум, то мы можем выписать уравнения стационарности и дополняющей нежёсткости которые обязательно разрешимы с некоторыми, неизвестными нам двойственными переменными. \\ \\
+\textit{Опциональный материал:} \\ \\
+Введем два множества - $\mathcal{S}(x_{0})$ множество всех гладких траекторий выходящих из $x_{0}$ и остающихся в множестве $F$; $\mathcal{T}_{F}(x_{0})$ касательное пространство к множеству $F$ в точке $x_{0}$:
+\begin{gather*}
+    \mathcal{S}(x_{0}) = \left\{ x(t) \,|\, x(t) \in F \, \forall t \geq 0; x(0) = x_{0}; x(t) \in C^{1} \right\}\\
+    \mathcal{T}_{F}(x_{0}) = \left\{ d \,|\, \exists x(t) \in \mathcal{S}(x_{0}),\, \left. d = \dfrac{\partial x}{\partial t}\right|_{t = 0} \right\}\\
+\end{gather*}
+Теорема ККТ второго порядка:
+\theorem{
+Пусть в \hyperref[kkt]{задаче оптимизации} $f, g_{i}, h_{j} \in C^{2}$, $x_{*}$ - точка локального минимума и выполнены условия регулярности для $\{ g_{i}(x_{*}),\, h_{j}(x_{*}) \,|\, i, j \in \text{Active}(x_{*}) \}$. \\ Тогда найдутся $\lambda_{*}, \mu_{*}$ такие, что:
+\begin{itemize}
+    \item $\nabla_{x}L(x_{*}, \lambda_{*}, \mu_{*}) = \nabla f(x_{*}) + \sum\limits_{i=1}^{m} \lambda_{i} \nabla g_{*, i}(x_{*}) + \sum\limits_{j=1}^{p} \mu_{*, j} \nabla h_{j}(x_{*}) = 0$ - станционарность функции Лагранжа.
+    \item $x_{*} \in F$ - прямая допустимость
+    \item $\lambda_{*, i} \geq 0 \, \forall i$ - двойственная допустимость
+    \item $\lambda_{*, i} g_{i}(x_{*}) = 0 \, \forall i$ - условия дополняющей нежесткости
+    \item $d^{T} \nabla^{2}_{xx} L(x_{*}, \lambda_{*}, \mu_{*})d \geq 0 \, \forall d \in \mathcal{T}_{F}(x_{*})$
+\end{itemize}
+}
+Если выполнены условия регулярности, то можно записать $\mathcal{T}_{F}(x_{0})$ в виде:
+\[
+    \mathcal{T}_{F}(x_{0}) = \left\{ d \,|\, \nabla g_{i}(x_{0})^T d \leq 0, \, \nabla h_{j}(x_{0})^T d \leq 0 \, \forall i, j \in \text{Active}(x_{0}) \right\}
+\]

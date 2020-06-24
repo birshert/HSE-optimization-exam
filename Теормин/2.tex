@@ -1,0 +1,39 @@
+Введем некоторые обозначения:\\
+$x_{k+1} = x_k + \alpha_k d_k, \ x_k, d_k \in \mathbb{R}^n$\\
+$\varphi(\alpha) = f(x_k + \alpha_k d_k)$, также есть примерное приближение: $\varphi(\alpha) \approx f(x_k) + \alpha \nabla f(x_k)^Td_k$\\
+$\varphi(\alpha) \to \min\limits_{\alpha}$\\
+$\nabla f(x_k)^Td_k = \varphi'(0) < 0$\\
+
+\textbf{Условие Армихо}:
+\begin{itemize}
+    \item $\varphi(\alpha_k) \leq \varphi(0) + c_1\alpha_k\varphi'(0),\ \ c_1 \in (0; 1)$
+\end{itemize}
+Нужно для этого: $\varphi(0) - \varphi(\alpha_k) = f(x_k) - f(x_k + \alpha_k d_k)\geq -\alpha_k(c_1\varphi'(0))>0$
+
+Хотим делать большие шаги, пока функция тоже меняется сильно. $c_1$ должно быть близким к 0, чем ближе, тем больше шаги мы разрешаем.
+\bigskip
+
+\textbf{Условия Вульфа:}
+\begin{itemize}
+    \item $\varphi'(\alpha_k) \geq c_2 \varphi'(0)$ -- слабое условие (помним, что $\varphi'(0) < 0$)
+    \item $|\varphi'(\alpha_k)| \leq c_2 |\varphi'(0)|, \ c_2 \in (0, 1)$ -- сильное условие
+    \item  $\varphi(\alpha_k) \leq \varphi(0) + c_1\alpha_k\varphi'(0),\ \ c_1 \in (0; 1)$ (условие Армихо, иногда он включал его в Вульфа, иногда нет, но всегда, когда рассматриваем Вульфа, разумно, чтобы Армихо тоже было выполнено)
+\end{itemize}
+Чем ближе $c_2$ к 0, тем ближе мы к локальному минимуму (тем больше берем шаг), чем ближе $c_2$ к 1, тем гибче (можем взять маленький шаг).
+\bigskip
+
+\textbf{Утверждение.} Если $\varphi'(0) < 0,\ \varphi(\alpha) > -\infty\ \forall \alpha,\ 0<c_1\leq c_2<1$, то $\exists\ \alpha_*$, которое удовлетворяет условиям Армихо и Вульфа (в любой форме).
+\bigskip
+
+\textbf{Алгоритм Backtracking:}
+\begin{algorithm}[H]
+    \begin{algorithmic}[1]
+        \Procedure{backtracking}{$\alpha_{start},\ \beta,\ \varphi_k:\mathbb{R_+}\to\mathbb{R}$}
+        \State $\alpha \gets \alpha_{start}$
+        \While{$\varphi_k(\alpha) > \varphi(0) + c_1\alpha\varphi'_k(0)$}
+            \State $\alpha \gets \beta\alpha$
+        \EndWhile
+        \State \Return $\alpha$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}

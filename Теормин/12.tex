@@ -1,0 +1,40 @@
+Задача линейного программирования в общем виде:
+\[
+    \begin{cases}
+        c^{T} x \to \min\limits_{x} \\
+        Ax = b \\
+        Ex \leq d
+    \end{cases}
+\]
+Задача линейного программирования в \textbf{канонической форме}:
+\[
+    \begin{cases}
+        c^{T} x \to \min\limits_{x \in \mathbb{R}^{n}} \\
+        Ax = b, \quad A \in \mathbb{R}^{p \times n}, p < n, \Rk(A) = p \\
+        x \geq 0
+    \end{cases}
+\]
+Эквивалентные преобразования для сведения задачи к канонической форме:
+\begin{itemize}
+    \item $Ex \leq d \Leftrightarrow \begin{cases}
+                                         Ex + f = d \\ f \geq 0
+    \end{cases}$
+    \item $Ax = b \Leftrightarrow \begin{cases}
+                                      A(x^{+} - x^{-}) = b \\ x = x^{+} - x^{-}, \quad x^{+} = \max(x, 0), \quad x^{-} = \max(-x, 0) \\ x^{+}, x^{-} \geq 0
+    \end{cases}$
+\end{itemize}
+Пример сведения:
+\[
+    \begin{cases}
+        c^{T} x \to \min\limits_{x} \\
+        Ax = b \\
+        Ex \leq d
+    \end{cases}
+    \Leftrightarrow
+    \begin{cases}
+        c^{T} (x^{+} - x^{-}) \to \min\limits_{x^{+}, x^{-}} \\
+        A(x^{+} - x^{-}) = b \\
+        E(x^{+} - x^{-}) + f = d \\
+        x^{+}, x^{-}, f \geq 0
+    \end{cases}
+\]

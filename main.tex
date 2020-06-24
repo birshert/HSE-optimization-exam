@@ -1,0 +1,195 @@
+\documentclass[a4paper, 16pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{cmap}
+\usepackage[T2A]{fontenc}
+\usepackage[russian]{babel}
+\usepackage[left=2cm, right=1.5cm, top=1.5cm, bottom=1.5cm]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{ulem}
+\usepackage{enumitem}
+\usepackage{tikz}
+\usepackage{algorithm}
+\usepackage[noend]{algpseudocode}
+
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\usepackage{amsmath}
+\DeclareMathOperator{\Det}{Det}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\capl}{\cap}
+\DeclareMathOperator{\Tr}{Tr}
+\DeclareMathOperator{\Diag}{Diag}
+\DeclareMathOperator{\Rk}{Rk}
+\DeclareMathOperator{\grad}{grad}
+\DeclareMathOperator{\Dim}{dim}
+\DeclareMathOperator{\Transp}{Transp}
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+ 
+ % Цвета для гиперссылок
+\definecolor{linkcolor}{HTML}{799B03} % цвет ссылок
+\definecolor{urlcolor}{HTML}{799B03} % цвет гиперссылок
+ 
+\hypersetup{pdfstartview=FitH,  linkcolor=linkcolor, urlcolor=urlcolor, colorlinks=true}
+
+\newcommand{\theorem}[1]{\begin{center}\fbox{\begin{minipage}{\textwidth-1cm}#1 \end{minipage}}\end{center}}
+\newcommand{\Sym}{\mathbb{S}}
+\newcommand{\R}{\mathbb{R}}
+
+\usepackage{amsfonts, amsthm, mathtools, amssymb, icomma, units, mathrsfs}
+
+\fancypagestyle{first}{
+    \cfoot{1}
+    \renewcommand{\footrulewidth}{0 mm}
+    \renewcommand{\headrulewidth}{0 mm}
+}
+
+\fancypagestyle{plain}{
+    \renewcommand{\headrulewidth}{0 mm}
+    \renewcommand{\footrulewidth}{0.3 mm}
+    \cfoot{\normalsize\thepage}
+    \lfoot{
+        Непрерывная оптимизация.
+        Экзамен
+    }
+    \rfoot{171 группа}
+}
+
+\title{
+    Непрерывная оптимизация.
+    Экзамен
+}
+\author{171 группа}
+\date{Июнь 2020}
+
+\begin{document}
+    \maketitle
+    \thispagestyle{first}
+    \bigskip
+    \newpage
+    \setcounter{tocdepth}{2}
+	\tableofcontents
+	\newpage
+	\pagestyle{plain}
+    
+    \section{Теоретический минимум}
+    \subsection{Определение линейной/сублинейной/суперлинейной скорости сходимости. Пример последовательности для каждого класса. @mercivboku}
+
+    \input{Теормин/1.tex}
+
+    \subsection{Условия Армихо и Вульфа для неточной одномерной оптимизации. Процедура бэктрекинга. @mercivboku}
+
+    \input{Теормин/2.tex}
+    
+    \subsection{Общее определение производной функции (через линейное отображение). Основные свойства производной (правила суммы, произведения и композиции). Определения второй производной, градиента и гессиана. @mercivboku}
+
+    \input{Теормин/3.tex}
+    
+    \subsection{Классы липшицевых функций, гладких выпуклых и сильно выпуклых функций. Соответствующие глобальные верхние и нижние оценки на функцию. Примеры функций для каждого класса. @mercivboku}
+
+    \input{Теормин/4.tex}
+
+    \subsection{Выпуклые множества и функции. Операции, сохраняющие выпуклость. Простейшие свойства выпуклых функций (неравенство Йенсена, выпуклость надграфика, выпуклость множеств подуровней). Дифференциальные критерии выпуклости. @mercivboku}
+
+    \input{Теормин/5.tex}
+    
+    \subsection{Определения субградиента и субдифференциала. Субдифференциальное исчисление (умножение на скаляр, композиция с аффинным преобразованием, теорема Моро–Рокафеллара, максимум конечного числа функций и теорема Данскина). @poly\_nomial}
+
+    \input{Теормин/6.tex}
+
+    \subsection{Сопряженная функция Фенхеля. Неравенство Фенхеля–Юнга. Теорема Фенхеля–Моро. Связь сопряженной функции с субдифференциалом. @poly\_nomial}
+
+    \input{Теормин/7.tex}
+
+    \subsection{Сопряженная норма. Неравенство Гельдера. Основные примеры. @poly\_nomial}
+
+    \input{Теормин/8.tex}
+
+    \subsection{Проксимальный оператор. Связь с евклидовой проекцией. @bigbluebutterfly}
+
+    \input{Теормин/9.tex}
+
+    \subsection{Основные матричные разложения, их стоимость вычисления. @bigbluebutterfly}
+
+    \input{Теормин/10.tex}
+
+    \subsection{Формулировка теоремы Каруша-Куна-Таккера для общей задачи нелинейного программирования. @Bitchert}
+    
+    \input{Теормин/11.tex}
+    
+    \subsection{Каноническая форма задачи линейного программирования. Пример сведения общей задачи ЛП к задаче в канонической форме. @Bitchert}
+    
+    \input{Теормин/12.tex}
+
+    \subsection{Двойственная задача Лагранжа и ее основные свойства. Пример построения двойственной задачи. @Bitchert}
+    
+    \input{Теормин/13.tex}
+    
+    \subsection{Общая схема какого-то метода оптимизации (итерация, выбор длины шага, критерий останова), например, градиентного спуска, проксимального градиентного метода, метода SAG, метода логарифмических барьеров и проч.}
+
+    \input{Теормин/14.tex}
+
+    \newpage
+
+    \section{Билеты}
+    \subsection{Матрично-векторное дифференцирование в терминах дифференциалов. Примеры вычисления градиентов и гессианов для матричных функций.}
+
+    \input{Билеты/1.tex}
+
+    \subsection{Решение задачи одномерной оптимизации (метод золотого сечения, парабол, Брента). Условия для неточной одномерной оптимизации. @sofloud} 
+
+    \input{Билеты/2.tex}
+
+    \subsection{Метод градиентного спуска. Стратегии выбора длины шага. Скорость сходимости метода для сильно выпуклых функций, примеры быстрой и медленной работы метода. @juliasemavina}
+    
+    \input{Билеты/3.tex}
+    
+    \subsection{Метод Ньютона, его локальная и глобальная скорость сходимости. Модификации метода Ньютона для невыпуклых задач оптимизации. Примеры быстрой и медленной работы метода. @Bitchert}
+    
+    \input{Билеты/4.tex}
+    
+    \subsection{Метод сопряженных градиентов для решения системы линейных уравнений. Доказательство сходимости метода за конечное число итераций (в предположении, что сопряженные направления известны). Модификации метода для минимизации произвольных функций}
+    
+    \input{Билеты/5.tex}
+
+    \subsection{Безгессианный (неточный) метод Ньютона (HFN), его скорость сходимости. Способы оценивания произведения гессиана на вектор с помощью разностного дифференцирования. @kirili4ik}
+
+    \input{Билеты/6.tex}
+
+    \subsection{Квазиньютоновские методы. Схемы BFGS и L-BFGS. @isadrtdinov}
+
+    \input{Билеты/7.tex}
+
+    \subsection{Стандартные классы выпуклых задач: линейное программирование (LP), коническое квадратичное программирование (CQP/SOCP), полуопределенное программирование (SDP). Примеры задач для каждого из классов. Сводимость. L/CQ/SD-представимые множества и функции.}
+    
+    \input{Билеты/8.tex}
+    
+    \subsection{Симплекс-метод для решения задачи линейного программирования (в версии revised simplex method). Примеры сведения задачи линейного программирования к канонической форме.}
+
+    \input{Билеты/9.tex}
+
+    \subsection{Метод Ньютона и логарифмических барьеров для выпуклых задач условной оптимизации с ограничениями вида равенств и неравенств.}
+
+    \input{Билеты/10.tex}
+
+    \subsection{Субградиентный метод для негладких задач оптимизации. Различные способы выбора длины шага. Субдифференциальное исчисление, примеры вычисления субдифференциалов}
+
+    \input{Билеты/11.tex}
+
+    \subsection{Проксимальный градиентный метод для задачи композитной оптимизации. Примеры вычисления проксимальных операторов.}
+
+    \input{Билеты/12.tex}
+
+    \subsection{Стохастический градиентный спуск, его скорость сходимости. Различные стратегии выбора длины шага. Стохастические методы оптимизации с линейной скоростью сходимости (SAG и SVRG).}
+
+    \input{Билеты/13.tex}
+
+    \subsection{Риманова оптимизация, её основные компоненты (риманово многообразие, касательное пространство, римановый градиент, операции ретракции и транспортировки вектора). Римановый градиентный спуск, примеры применения. Примеры римановых многообразий. @isadrtdinov}
+
+    \input{Билеты/14.tex}
+
+\end{document}

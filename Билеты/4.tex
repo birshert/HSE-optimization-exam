@@ -1,0 +1,177 @@
+\subsubsection{Метод Ньютона}
+Рассмотрим нашу функцию в окрестности точки $x_k$, приблизим её некоторой квадратичной моделью $m_k(d_k)$:
+\[
+		f(x_k + d_k) \approx m_k(d_k) = f(x_k) + g_k^{T} d_k + \dfrac{1}{2} d_k^{T} B_k d_k \to \min\limits_{d_k}
+\]
+Для минимизации находим градиент модели и приравниваем к нулю:
+\[
+		\nabla_{d_k} m_k(d_k) = g_k + B_k d_k = 0 \Rightarrow d_k = - B_k^{-1} g_k
+\]
+Соответсвенно, если:
+\begin{itemize}
+		\item $g_k = \nabla f(x_k), \, B_k = \gamma_k I$ - получаем градиентный спуск
+		\item $g_k = \nabla f(x_k), \, B_k = \nabla^2 f(x_k)$ - получаем метод Ньютона
+\end{itemize}
+Для метода Ньютона соответственно $f \in C^{2}$, и было бы неплохо, если $\nabla^2 f(x) \succ 0$, чтобы мы вообще куда-то оптимизировали:
+\[
+		d_k = - \left[ \nabla^2 f(x_k) \right]^{-1} \nabla f(x_k) \Rightarrow \dfrac{\partial}{\partial \alpha} f(x_k + \alpha d_k) \Big|_{\alpha = 0} = \nabla f(x_k)^{T} d_k = - \nabla f(x_k)^{T} \left[ \nabla^2 f(x_k) \right]^{-1} \nabla f(x_k)
+\]
+Последнее выражение, очевидно, меньше нуля для любых точек если $\nabla^2 f(x) \succ 0$. \\
+Далее мы покажем глобальную сходимость метода Ньютона, его локальную сходимость и локальную скорость сходимости. \\
+\subsubsection{Глобальная сходимость метода Ньютона}
+Запишем условия Вульфа:
+\[
+		\begin{cases}
+			f(x_k + \alpha_k d_k) \leq f(x_k) + c_1 \alpha_k \nabla f_k^{T} d_k \\
+			\nabla f(x_k + \alpha_k d_k)^{T} d_k \geq c_2 \nabla f_{k}^{T} d_k
+		\end{cases}
+		\quad \text{где } 0 < c_1 < c2 < 1
+\]
+Косинус:
+\[
+		\cos \Theta_k = \dfrac{-\nabla f_k^{T} d_k}{\| \nabla f_k \|  \| d_k \|}
+\]
+\theorem{
+Положим, что мы совершаем на каждом шагу итерации вида $x_{k + 1} := x_k + \alpha_k d_k$. Положим также, что $f$ ограничена снизу на $\mathbb{R}^{n}$ и $f \in C^{1, 1}_{L}$. Тогда:
+\[
+		\sum\limits_{k \geq 0} \cos^{2} \Theta_k \| \nabla f_k \|^2 < \infty
+\]
+}
+\textbf{Доказательство:} \\
+\[
+		\nabla f(x_k + \alpha_k d_k)^T d_k - \nabla f_k^{T} d_k \geq (c_2 - 1) \nabla f_k^{T} d_k
+\]
+\[
+		\left( \nabla f_{k + 1} - \nabla f_{k} \right)^{T} d_k \geq (c_2 - 1) \nabla f_k^{T} d_k
+\]
+Так как у $f$ липшицевый градиент:
+\[
+		\left( \nabla f_{k + 1} - \nabla f_{k} \right)^{T} d_k \leq \alpha_k L \| d_k \|^2
+\]
+Тогда, совмещая два предыдущих неравенства:
+\[
+		\alpha_k \geq \dfrac{c_2 - 1}{L} \dfrac{\nabla f_{k}^{T} d_k}{\| d_k \|^2}
+\]
+Подставляем в условие Вульфа (первое) и получаем:
+\[
+		f_{k + 1} \leq f_{k} - c_1 \dfrac{1 - c_2}{L} \dfrac{\left[\nabla f_{k}^{T} d_k\right]^2}{\| d_k \|^2} = f_k - c_1 \dfrac{1 - c_2}{L} \cos^2 \Theta_k \| \nabla f_k \|^2
+\]
+Теперь просуммируем по всем индексам до $k$:
+\[
+		f_{k + 1} \leq f_{0} - c_1 \dfrac{1 - c_2}{L} \sum\limits_{j=0}^{k} \cos^2 \Theta_k \| \nabla f_j \|^2
+\]
+Ну и так как функция ограничена снизу, то сумма ограничена сверху некой положительной константой.
+\hfill$\scriptstyle\blacksquare$
+\vspace{0.5cm}
+\\
+Из предыдущей теоремы вытекает, что
+\[
+		\cos^2 \Theta_k \| \nabla f_k \|^2 \to 0.
+\]
+Чтож, теперь остался маленький (!) трюк (!), который позволит доказать нам глобальную сходимость метода Ньютона. Для этого потребуем чтобы для матриц $B_k = \left[ \nabla^2 f_k \right]^{-1}$ числа обусловленности были ограничены: $\mu(B_k) \leq M \, \forall k, M > 0$ и все матрицы $B_k$ положительно определены. Теперь запишем косинус и попробуем его отделить от нуля: \\
+\[
+		\cos \Theta_k = \dfrac{\nabla f_k^{T} \left[ \nabla^2 f_k \right]^{-1} \nabla f_k}{\| \nabla f_k \| \| \left[ \nabla^2 f_k \right]^{-1} \nabla f_k \|}
+\]
+Рассмотрим отдельно норму произведения обратной матрицы гессиана на градиент:
+\[
+		\| \left[ \nabla^2 f_k \right]^{-1} \nabla f_k \| = \sqrt{ \nabla f_{k}^{T} \left[ \nabla^2 f_k \right]^{-2} \nabla f_{k} }  \leq \sqrt{\lambda_{max}\left(\left[ \nabla^2 f_k \right]^{-2}\right) \| \nabla f_k \|^2 } = \lambda_{max}\left(\left[ \nabla^2 f_k \right]^{-1}\right) \| \nabla f_k \|
+\]
+Тут мы используем микроскопический хитрый трюк: $\lambda_{min}(A) \leq x^T A x \leq \lambda_{max}(A)$ для $x^Tx = 1$. Тогда:
+\[
+	\cos \Theta_k \geq \dfrac{\lambda_{min}(\left[ \nabla^2 f_k \right]^{-1})}{\lambda_{max}(\left[ \nabla^2 f_k \right]^{-1})} \geq \dfrac{1}{M} > 0
+\]
+Таким образом, мы отделили косинус от нуля, значит последовательность норм градиентов стремится к нулю, что означает глобальную сходимость метода Ньютона для функций, у которых гессиан положительно определен во всех точках и имеет ограниченное сверху число обусловленности.
+\subsubsection{Локальная сходимость метода Ньютона}
+\theorem{
+	Пусть $f \in C^{2, 2}_{M}$, $x_{*} - $ точка локального минимума с $\nabla^2 f(x_{*}) \succeq \mu I, \mu > 0$. Мы стартуем из некоторой окрестности точки $x_{*}$:
+	\[
+		x_0: \quad \| x_{*} - x_0 \| < \overline{r} = \dfrac{2\mu}{3M}
+	\]
+	Тогда метод Ньютона с $\alpha_k \equiv 1$ сходится $\| x_k - x_{*} \| < \overline{r} \, \forall k$ и имеет скорость сходимости квадратичную (суперлинейную):
+	\[
+		\| x_{k+1} - x_{*} \| \leq \dfrac{M \| x_{k} - x_{*} \|^2}{2 \left( \mu - M \| x_{k} - x_{*} \| \right)}
+	\]
+	}
+\textbf{Доказательство:} \\
+Мы делаем итерации вида $x_{k+1} = x_k - \left[ \nabla^2 f(x_k) \right]^{-1} \nabla f(x_k)$. Рассмотрим разность между $x_{k+1}$ и $x_{*}$:
+\[
+	x_{k+1} - x_{*} = x_{k} - x_{*} - \left[ \nabla^2 f(x_k) \right]^{-1} \nabla f(x_k) = x_k - x_{*} - \left[ \nabla^2 f(x_k) \right]^{-1} \int\limits_{0}^{1}\, \nabla^2 f(x_* + t(x_k - x_*))(x_k - x_*)  \, dt =
+\]
+\[
+	= (x_k - x_*) \left[ \nabla^2 f(x_k) \right]^{-1} \int\limits_{0}^{1}\, \left( \nabla^2 f(x_k) - \nabla^2 f(x_* + t(x_k - x_*))\right) \, dt
+\]
+Положим $r_k := \| x_k - x_* \|$. Тогда:
+\[
+	\left\| \int\limits_{0}^{1}\, \left( \nabla^2 f(x_k) - \nabla^2 f(x_* + t(x_k - x_*))\right) \, dt \right\| \leq \int\limits_{0}^{1} \, \left\| \nabla^2 f(x_k) - \nabla^2 f(x_* + t(x_k - x_*)) \right\| \, dt \leq M \dfrac{r_k}{2}
+\]
+Так как для $f \in C^{2, 2}_{M}$ выполнено для $\| y - x \| = r$:
+\[
+	\nabla^2 f(x) - MrI_n \preceq \nabla^2 f(y) \preceq \nabla^2 f(x) + MrI_n,
+\]
+то:
+\[
+	\nabla^2 f(x_k) \succeq \nabla^2 f(x_*) - Mr_k I_n \succeq (\mu - Mr_k)I_n
+\]
+Тогда если $r_k < \dfrac{\mu}{M}$, то гессиан в точке $x_k$ положительно определен и $\left\| \left[\nabla^2 f(x_k)\right]^{-1} \right\| \leq (\mu - Mr_k)^{-1}$. Значит имеем:
+\[
+	r_{k + 1} \leq \dfrac{M r_{k}^2}{2(\mu - Mr_k)}
+\]
+Из этого следует, что для $x_0: \quad \| x_{*} - x_0 \| < \overline{r} = \dfrac{2\mu}{3M}$ метод Ньютона сходится и сходится квадратично (суперлинейно).
+\hfill$\scriptstyle\blacksquare$
+\subsubsection{Модификации метода Ньютона для невыпуклых задач оптимизации}
+Для невыпуклых задач не выполняется $\nabla^2 f \succ 0$. Хотим теперь использовать в качестве $B_k$ какую-то матрицу, которую будем строить на основе гессиана, но чтобы она имела положительную определенность. Итерации нашего метода выглядят по-прежнему: $x_{k+1} = x_k - \alpha_k B_k^{-1}\nabla f(x_k)$. \\
+Рассмотрим несколько методов коррекции гессиана для достижения положительной определенности:
+\begin{itemize}
+	\item \textbf{Модификация собственных значений} Так как гессиан симметричная матрица, то можем представить его в виде:
+	\[
+		\nabla^2 f(x_k) = Q \Lambda Q^T, \quad \Lambda = \Diag(\lambda_1, \dots, \lambda_n), \quad Q^{-1} = Q^{T}
+	\]
+	Тогда в качестве матрицы $B_k$ можно взять
+	\[
+		B_k = Q \overline{\Lambda} Q^{T}, \text{ где } \overline{\lambda_i} = \begin{cases}
+		\lambda_i, \, \lambda_i \geq \delta > 0, \\
+		\delta, \text{ иначе.}
+		\end{cases}
+	\]
+	После того, как мы нашли собственное разложение, уже можно не решать заново СЛАУ $B_k d_k = -\nabla f(x_k)$, а в явном виде вычислить $d_k$:
+	\[
+		d_k = - Q \overline{\Lambda}^{-1} Q^{T} \nabla f(x_k)
+	\]
+	\item \textbf{Модификация диагонали} В качестве $B_k$ берём следующую матрицу:
+	\[
+		B_k = \nabla^2 f(x_k) + \tau_k I_n
+	\]
+	\begin{algorithmic}[1]
+		\Procedure{\textsc{BkSearch}}{$f, x_k, \tau$}
+		\State get $\nabla^2 f(x_k)$
+		\While{$\tau < \tau_{max}$}
+		\State $B_k \gets \nabla^2 f(x_k) + \tau I_n$
+		\If{\textsc{CholeskyDecomposition($B_k$)}}
+			\textbf{break}
+		\EndIf
+		\State $\tau \gets \min(\tau_{max}, \tau \nu), \, \nu > 1$
+		\EndWhile
+		\State $\tau \gets \tau / \beta, \, \beta > 1$
+		\State \Return $B_k, \tau$
+		\EndProcedure
+	\end{algorithmic}
+	Соответственно, если всё удачно, то мы знаем разложение Холецкого для нашей матрицы $B_k$ и для вычисления $d_k$ нужно дважды решить СЛАУ с треугольной матрицей:
+	\[
+		B_k = LL^{T} \Rightarrow d_k = - L^{-T} L^{-1} \nabla f(x_k)
+	\]
+	Это дешевле чем первый способ, потому что разложение Холецкого на порядок дешевле чем собственное разложение и даже несколько раз его выполнить будет дешевле одного собственного разложения.
+	\item \textbf{Модификация симметричной факторизацией}
+	Делаем разложение вида:
+	\[
+		P^{T} \nabla^2 f(x_k) P = LDL^{T}, \text{ где } L - \text{нижнетреугольная},\, D - \text{блочно-диагональная с блоками } 1\times1 \text{ и } 2\times2
+	\]
+	Тогда затем сделаем собственное разложение для $D$, это очень просто (блочно-диагональная матрица), потом сделаем модификацию для $\Lambda$ как мы делали в модификации собственных значений:
+	\[
+		B_k = PL\overline{D}L^{T}P^{T} \Rightarrow d_k = -PL^{-T}\overline{D}^{-1} L^{-1} P^{T} \nabla f(x_k)
+	\]
+\end{itemize}
+\subsubsection{Примеры медленной и быстрой работы метода}
+Идеальный вариант для работы метода Ньютона - квадратичная функция: $f(x) = \dfrac{1}{2} x^T A x + b^T x$, где $A \in \mathbb{S}^{n}_{++}, b \in \mathbb{R}^{n}$. Метод Ньютона сходится за одну итерацию из любой начальной точки. \\
+В качестве функции, на который метод сходится линейно, можно назвать функцию $x^4$. \\
+Плохой функцией можно назвать функцию Розенброка, на ней метод Ньютона вообще не сходится. \\
+Еще можно упомянуть про большую размерность, что гессиан не будет влезать в память.
