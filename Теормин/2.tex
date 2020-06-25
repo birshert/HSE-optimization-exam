@@ -28,7 +28,7 @@ $\nabla f(x_k)^Td_k = \varphi'(0) < 0$\\
 \textbf{Алгоритм Backtracking:}
 \begin{algorithm}[H]
     \begin{algorithmic}[1]
-        \Procedure{backtracking}{$\alpha_{start},\ \beta,\ \varphi_k:\mathbb{R_+}\to\mathbb{R}$}
+        \Procedure{backtracking}{$\alpha_{start},\ \beta\ \in [0.1, 0.8],\ \varphi_k:\mathbb{R_+}\to\mathbb{R}$}
         \State $\alpha \gets \alpha_{start}$
         \While{$\varphi_k(\alpha) > \varphi(0) + c_1\alpha\varphi'_k(0)$}
             \State $\alpha \gets \beta\alpha$

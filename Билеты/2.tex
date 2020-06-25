@@ -113,7 +113,7 @@ $$\phi'(0) = \nabla f(x_k)^T d_k < 0$$
     На практике берут $c_1=10^{-4}, \ c_2 = 0.9$ (если интересует незначительное уменьшение функции) или $c_2=0.1$ (если важно посильнее минимизировать функцию)
 \end{itemize}
 \textbf{Теорема.}
-Если $\phi(\alpha)\in C^1, \ \phi'(\alpha)<0, \phi(\alpha)>-\infty \ \forall \alpha$ и
+Если $\phi(\alpha)\in C^1, \ \phi'(0)<0, \phi(\alpha)>-\infty \ \forall \alpha$ и
 $0<c_1\leq c_2<1 \Rightarrow$ \newline
 $\exists \alpha_*,$ удовлетворяющая условию Армихо и слабому или сильному условию Вольфа.
 \newline \textbf{Доказательство.}
@@ -139,7 +139,7 @@ $$|\phi'(\alpha_*)|=|c_1\phi'(0)|\leq c_2 |\phi'(0)|$$
 \begin{center}
     $=> \ \alpha_*$ удовлетворяет сильному условию Вольфа.
 \end{center}
-\hfill$\scriptstyle\blacksquare$
+\hfill$\scriptstyle\blacksquare$\newline
 \textbf{Алгоритм поиска $\alpha_*$.}
 \begin{itemize}
     \item[1.] \textbf{Расширение (поиск правой границы)} \\
